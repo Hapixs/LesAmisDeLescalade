@@ -122,7 +122,6 @@ public class ClimbingSitesController {
     public String postNewSite(@ModelAttribute("newSite") ClimbingSite newSite,
                               RedirectAttributes redirectAttributes) {
 
-
         if(newSite.getDescription() == null
                 || newSite.getDisplayName() == null
                 || newSite.getDifficulty() == null
@@ -132,10 +131,8 @@ public class ClimbingSitesController {
                 || newSite.getWayAmount() == null ) {
             redirectAttributes.addAttribute("error", "Le site n'as pas été ajouter, veuillez remplir tout les champs.");
             redirectAttributes.addAttribute("newSite", newSite);
-
             return "redirect:/sites/users/newsite";
         }
-
 
         climbingSiteService.createClimbingSite(newSite);
         redirectAttributes.addAttribute("succes", "Le site à bien été partager.");

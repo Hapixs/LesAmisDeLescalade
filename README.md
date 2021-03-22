@@ -6,14 +6,14 @@ Site communautaire regroupant les différent site d'escalade de France et des to
 + maven 2
 + une base de donnée MySQL
 ### Configuration ###
-**Utiliser la configuration par défaut de l'application:**
+**Utiliser la configuration par défaut de la base de donnée:**
 * host: localhost
 * port: 3306
 * base de donnée: lesamisdelescalade *(Elle doit être créer manuellement)*
 * utilisateur: localroot
 * mot de passe: *(aucun)*
 
-**Modifier la configuration de l'application**:
+**Modifier la configuration de la base de donnée *(si besoin)***:
 1. Modifier les different champs du fichier application.properties tel que 
    * `spring.datasource.url`
    * `spring.datasource.username`
