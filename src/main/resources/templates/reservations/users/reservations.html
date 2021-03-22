@@ -21,10 +21,36 @@
     <link rel="stylesheet" href="style/style.css">
 
 
-    <title>Title</title>
+    <title>Mes réservations</title>
 </head>
 
 <body>
+<div class="container">
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
+    <div class="row align-items-center text-center" th:if="${reservations.isEmpty()}">
+        <h3 class="text-center col-12">Aucune réservation trouvé</h3>
+        <p class="col-12 text-center" style="color: darkgray">Vous pouvez faire des réservations de topo <a th:href="@{/user/registerNewTopo}">ici</a></p>
+    </div>
 
+    <div class="row card w-auto m-3" th:each="r : ${reservations}" th:object="${r}">
+        <div class="card-header">
+            <h4 class="card-title" th:text="*{'Reservation pour '+getTopo().getDisplayName()}"></h4>
+            <p class="card-subtitle"> <span th:if="*{isAccepted()}" class="badge bg-success">Accepter.</span> </p>
+            <p class="card-subtitle"> <span th:unless="*{isAccepted()}" class="badge bg-warning">En attente.</span> </p>
+        </div>
+        <div class="card-body">
+            <div th:if="*{isAccepted()}">
+                <p>Cette réservation à été accepter. <br/> Votre email à été communiquer avec le propriètaire du topo</p>
+            </div>
+            <div th:unless="*{isAccepted()}">
+                <p>Cette réservation est toujours en attente. Le propriètaire peut à tout moment la confirmé.</p>
+            </div>
+        </div>
+        <div class="card-footer" th:if="*{isAccepted()}">
+           <p th:text="'Email du propriètaire: '+*{getTopo().getUser().getEmail()}"></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

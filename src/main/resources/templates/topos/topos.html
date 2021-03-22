@@ -26,8 +26,8 @@
 
 <body>
 <div class="container">
-    <div th:replace="/fragments :: nav"> </div>
-    <div th:replace="/fragments :: notif(${succes}, ${error})"></div>
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
 
     <div th:if="${topos.isEmpty()}">
         <h2>Aucun topo trouver...</h2>

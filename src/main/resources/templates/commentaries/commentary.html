@@ -27,8 +27,8 @@
 <body>
 
 <div class="container">
-    <div th:replace="/fragments :: nav"> </div>
-    <div th:replace="/fragments :: notif(${succes}, ${error})"></div>
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
     <div class="row card m-3" th:object="${commentary}">
         <div class="card-body">
             <p th:text="'Ecrit par: ' + *{getUser().getUsername()}"></p>

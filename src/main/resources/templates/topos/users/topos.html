@@ -27,8 +27,8 @@
 <body>
 
 <div class="container">
-    <div th:replace="/fragments :: nav"> </div>
-    <div th:replace="/fragments :: notif(${succes}, ${error})"></div>
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
     <div class="row w-auto align-content-center pb-3 pt-4">
         <a class="col-md-4 col-12 btn btn-primary m-2" th:unless="${reservedTopo.isEmpty() && unReservedTopo.isEmpty()}" th:href="@{/topos/users/newtopo}">Ajouter un nouveau topo</a>
         <a class="col-md-4 col-12 btn btn-primary m-2" th:unless="${unReservedTopo.isEmpty()}" href="#reservedTopos">Voir mes topos disponibles</a>

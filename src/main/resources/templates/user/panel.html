@@ -26,8 +26,8 @@
 
 <body>
 <div class="container">
-    <div th:replace="/fragments :: nav"> </div>
-    <div th:replace="/fragments :: notif(${succes}, ${error})"></div>
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
     <div class="row m-3">
         <div class="card">
             <div class="card-header text-center">Site d'escalades</div>
@@ -55,6 +55,21 @@
                 </p>
                 <div class="text-center">
                     <a th:href="@{/topos/users/topos}" class="btn btn-primary card-link">Mes topos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="card">
+            <div class="card-header text-center">Topos</div>
+            <div class="card-body">
+                <h5 class="card-title">Voir mes réservations</h5>
+                <p class="card-text">
+                    Ici vous pourrez acceder à la liste des réservations que vous avez éffectuer sur les différent topo.
+                    <br/>Dans le cas ou un réservations est accetpée vous pourrez y avoir les information de contact du propriètaire.
+                </p>
+                <div class="text-center">
+                    <a th:href="@{/reservations/users/reservations}" class="btn btn-primary card-link">Mes réservations</a>
                 </div>
             </div>
         </div>

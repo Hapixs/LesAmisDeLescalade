@@ -26,8 +26,8 @@
 
 <body>
 <div class="container">
-    <div th:replace="/fragments :: nav"> </div>
-    <div th:replace="/fragments :: notif(${succes}, ${error})"></div>
+    <div th:replace="fragments.html :: nav"> </div>
+    <div th:replace="fragments.html :: notif(${succes}, ${error})"></div>
     <h2 class="pt-4">Nouveau topo</h2>
 
     <form class="input-group" th:action="@{/topos/users/newtopo}" th:method="POST" th:object="${topo}">

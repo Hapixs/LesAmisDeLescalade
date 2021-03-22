@@ -174,6 +174,38 @@ public class ReservationsController {
         return "redirect:/topos/users/topos";
     }
 
+    @GetMapping("/users/reservations")
+    public String getUserReservations(Model model,
+                                      Authentication auth, RedirectAttributes redirectAttributes,
+                                      @ModelAttribute(value = "succes", binding = false) String succes,
+                                      @ModelAttribute(value = "error", binding = false) String error) {
+
+        model.addAttribute("error", error);
+        model.addAttribute("succes", succes);
+
+        redirectAttributes.addAttribute("error", "");
+        redirectAttributes.addAttribute("succes", "");
+
+        User user;
+
+        try{
+            if(auth == null || !auth.isAuthenticated()) {
+                redirectAttributes.addAttribute("error", "Merci de vous connecter pour effectuer cela.");
+                return  "redirect:/index";
+            }
+            user = userService.findByUsernameOrEmailIfExist(auth.getName());
+        } catch (EntityNotExistException e) {
+            redirectAttributes.addAttribute("error", "Une erreur c'est produite avec votre compte utilisateur.");
+            return  "redirect:/index";
+        }
+
+        Page<Reservation> reservations = reservationService.listAllByUser(PageRequest.of(0, 9999999), user);
+
+        model.addAttribute("reservations", reservations);
+
+        return "reservations/users/reservations";
+    }
+
     protected Optional<String> getPreviousPageByRequest(HttpServletRequest request){
         return Optional.ofNullable(request.getHeader("Referer")).map(url -> "redirect:" + url);
     }
