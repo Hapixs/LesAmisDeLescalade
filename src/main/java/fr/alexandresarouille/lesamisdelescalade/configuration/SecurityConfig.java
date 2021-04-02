@@ -5,6 +5,7 @@ import fr.alexandresarouille.lesamisdelescalade.entities.User;
 import fr.alexandresarouille.lesamisdelescalade.entities.enums.Difficulty;
 import fr.alexandresarouille.lesamisdelescalade.entities.enums.Region;
 import fr.alexandresarouille.lesamisdelescalade.entities.enums.Role;
+import fr.alexandresarouille.lesamisdelescalade.exception.EntityAlreadyExistException;
 import fr.alexandresarouille.lesamisdelescalade.services.ClimbingSiteService;
 import fr.alexandresarouille.lesamisdelescalade.services.IUserService;
 import fr.alexandresarouille.lesamisdelescalade.services.UserService;
@@ -34,6 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder());
 
+        try {
+            User admin = new User("admin", "admin@", "admin", Role.ADMIN);
+            userService.createUserAccount(admin);
+        } catch (EntityAlreadyExistException ignored) {}
     }
 
     @Override
