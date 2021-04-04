@@ -55,7 +55,7 @@ public class ReservationsController {
             user = userService.findByUsernameOrEmailIfExist(auth.getName());
         } catch (EntityNotExistException e) {
             redirectAttributes.addAttribute("error", "Une erreur c'est produite.");
-            return getPreviousPageByRequest(request).orElse("/");
+            return "reservations/users/reservations";
         }
 
         Pageable pageable = PageRequest.of(0, 10);
@@ -140,10 +140,11 @@ public class ReservationsController {
         return "reservations/topos/reservations";
     }
 
-    @PostMapping("/topos/reservations")
-    public String confirmReservation(HttpServletRequest request,
-                                     @RequestParam("id") Integer id,
+    @GetMapping("/topos/confirmreservations")
+    public String confirmReservation(@RequestParam("id") Integer id,
                                      RedirectAttributes redirectAttributes) {
+
+        System.out.println("starting confirmation");
 
         redirectAttributes.addAttribute("error", "");
         redirectAttributes.addAttribute("succes", "");
@@ -156,7 +157,7 @@ public class ReservationsController {
             reservationService.editReservation(reservation, reservation.getId());
         } catch (EntityNotExistException e) {
             redirectAttributes.addAttribute("error", "Une erreur c'est produite (Réservation introuvable). Veuillez nous excuser.");
-            return getPreviousPageByRequest(request).orElse("/");
+            return "redirect:/topos/users/topos";
         }
 
         Topo topo = reservation.getTopo();
@@ -168,7 +169,7 @@ public class ReservationsController {
             redirectAttributes.addAttribute("succes", "La réservation à bien été confirmée.");
         } catch (EntityNotExistException e) {
             redirectAttributes.addAttribute("error", "Une erreur c'est produite (Topo introuvable). Veuillez nous excuser.");
-            return getPreviousPageByRequest(request).orElse("/");
+            return "redirect:/topos/users/topos";
         }
 
         return "redirect:/topos/users/topos";
@@ -206,7 +207,4 @@ public class ReservationsController {
         return "reservations/users/reservations";
     }
 
-    protected Optional<String> getPreviousPageByRequest(HttpServletRequest request){
-        return Optional.ofNullable(request.getHeader("Referer")).map(url -> "redirect:" + url);
-    }
 }

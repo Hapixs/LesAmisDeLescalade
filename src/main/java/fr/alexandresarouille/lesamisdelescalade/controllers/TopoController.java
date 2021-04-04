@@ -74,7 +74,7 @@ public class TopoController {
         model.addAttribute("succes", succes);
         model.addAttribute("error", error);
 
-        return "/topos/users/registerNewTopo";
+        return "topos/users/newTopo";
     }
 
     @PostMapping("/users/newtopo")
@@ -100,7 +100,6 @@ public class TopoController {
 
     @GetMapping("/users/topos")
     public String listPersonalTopo(Model model,
-                                   HttpServletRequest request,
                                    Authentication auth,
                                    RedirectAttributes redirectAttributes,
                                    @ModelAttribute(value = "succes", binding = false) String succes,
